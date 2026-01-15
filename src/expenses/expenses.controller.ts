@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query, ValidationPipe } from "@nestjs/common";
 import { CreateExpenseDto } from "./dto/create-extense.dto";
 import { UpdateExpenseDto } from "./dto/update-extense.dto";
 import { ExpensesService } from "./expenses.service";
@@ -33,12 +33,12 @@ export class ExpensesController {
     }
 
     @Post()
-    createExpense(@Body() createUserDto: CreateExpenseDto) {
+    createExpense(@Body(ValidationPipe) createUserDto: CreateExpenseDto) {
         return this.expensesService.createExpense(createUserDto);
     }
 
     @Put(":id")
-    updateExpense(@Param("id", ParseIntPipe) id: number, @Body() updateExpenseDto: UpdateExpenseDto) {
+    updateExpense(@Param("id", ParseIntPipe) id: number, @Body(ValidationPipe) updateExpenseDto: UpdateExpenseDto) {
         return this.expensesService.updateExpense(id, updateExpenseDto)
     }
 
