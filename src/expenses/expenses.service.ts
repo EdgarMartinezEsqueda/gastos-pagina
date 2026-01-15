@@ -1,6 +1,7 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { CreateExpenseDto } from "./dto/create-extense.dto";
 import { UpdateExpenseDto } from "./dto/update-extense.dto";
+
 @Injectable()
 export class ExpensesService {
     private expenses = [
@@ -35,42 +36,59 @@ export class ExpensesService {
     ]
 
     getAllExpenses() {
-        return this.expenses
+        return this.expenses;
     }
 
     getExpense(id: number) {
-        return this.expenses.find(expense => expense.id == id);
+        const expense = this.expenses.find(expense => expense.id == id);
+
+        if(!expense)
+            throw new NotFoundException(`No se encontró ningún gasto con el id ${id}`);
+
+        return expense;
     }
 
     getExpensesByDescription(description: string){
         const response = this.expenses.filter(expense => expense.description.includes(description) );
+
+        if(!response)
+            throw new NotFoundException("No se encontraron gastos con esa descripción");
+
         return response;
     }
 
     createExpense(createExpenseDto: CreateExpenseDto ){
         const id = this.expenses.length + 1;
         const fecha = new Date(createExpenseDto.date) || new Date();
-        this.expenses.push( {id, ...createExpenseDto, date: fecha} );
-        return "Creado"
+        const expense = {id, ...createExpenseDto, date: fecha};
+
+        this.expenses.push( expense );
+
+        return expense;
     }
 
     updateExpense(id: number, updatedExpenseDto: UpdateExpenseDto){
         const expense = this.getExpense(id);
+
         if (!expense)
-            return("No encontrado");
+            throw new   NotFoundException(`No se encontró ningún gasto con el id ${id}`);
+
         expense.description = updatedExpenseDto.description ?? expense.description;
         expense.amount = updatedExpenseDto.amount ?? expense.amount;
         expense.date = new Date(updatedExpenseDto.date ?? expense.date);
         expense.category = updatedExpenseDto.category ?? expense.category;
         
-        return "Actualizado";
+        return expense;
     }
 
     deleteExpense(id: number){
         const expense = this.getExpense(id);
+
         if (!expense)
-            return("No encontrado");
+            throw new  NotFoundException(`No se encontró ningún gasto con el id ${id}`);
+
         this.expenses = this.expenses.filter(expense => expense.id != id);
+
         return "Eliminado";
     }
 }
