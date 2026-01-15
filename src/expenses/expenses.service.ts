@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
-
+import { CreateExpenseDto } from "./dto/create-extense.dto";
+import { UpdateExpenseDto } from "./dto/update-extense.dto";
 @Injectable()
 export class ExpensesService {
     private expenses = [
@@ -46,21 +47,21 @@ export class ExpensesService {
         return response;
     }
 
-    createExpense(expense: {description: string, amount: number, date: string, category: string} ){
+    createExpense(createExpenseDto: CreateExpenseDto ){
         const id = this.expenses.length + 1;
-        const fecha = new Date(expense.date) || new Date();
-        this.expenses.push( {id, ...expense, date: fecha} );
+        const fecha = new Date(createExpenseDto.date) || new Date();
+        this.expenses.push( {id, ...createExpenseDto, date: fecha} );
         return "Creado"
     }
 
-    updateExpense(id: number, updatedExpense: {description?: string, amount?: number, date?: string, category?: string}){
+    updateExpense(id: number, updatedExpenseDto: UpdateExpenseDto){
         const expense = this.getExpense(id);
         if (!expense)
             return("No encontrado");
-        expense.description = updatedExpense.description ?? expense.description;
-        expense.amount = updatedExpense.amount ?? expense.amount;
-        expense.date = new Date(updatedExpense.date ?? expense.date);
-        expense.category = updatedExpense.category ?? expense.category;
+        expense.description = updatedExpenseDto.description ?? expense.description;
+        expense.amount = updatedExpenseDto.amount ?? expense.amount;
+        expense.date = new Date(updatedExpenseDto.date ?? expense.date);
+        expense.category = updatedExpenseDto.category ?? expense.category;
         
         return "Actualizado";
     }
