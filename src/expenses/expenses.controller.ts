@@ -1,7 +1,11 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/common";
+import { ExpensesService } from "./expenses.service";
 
 @Controller("expenses")
 export class ExpensesController {
+
+    constructor(private readonly expensesService: ExpensesService){}
+
     /*
         GET /api/expenses - Listar gastos con paginación
         GET /api/expenses/search?query= - Buscar por descripción
@@ -13,32 +17,31 @@ export class ExpensesController {
 
     @Get()
     getAllExpenses() {
-        return "This action returns all expenses";
+        return this.expensesService.getAllExpenses();
     }
     
     @Get("search")
-    searchExpenses(@Query("query") description: {}) {
-        console.log(description);
-        return `This action searches for expenses`;
+    getExpensesByDescription(@Query("query") description: string) {
+        return this.expensesService.getExpensesByDescription(description);
     }
 
     @Get(":id")
-    getExpense(@Param("id") id: string) {
-        return `This action returns a expense with id ${id}`;
+    getExpense(@Param("id") id: number) {
+       return this.expensesService.getExpense(id);
     }
 
     @Post()
-    createExpense(@Body() body: {}) {
-        return `This action creates a new expense ${body}`;
+    createExpense(@Body() expense: {description: string, amount: number, date: string, category: string}) {
+        return this.expensesService.createExpense(expense);
     }
 
     @Put(":id")
-    updateExpense(@Param("id") id: string) {
-        return `This action updates a expense with id ${id}`;
+    updateExpense(@Param("id") id: number, @Body() updateExpense: { description?: string, amount?: number, date?: string, category?: string}) {
+        return this.expensesService.updateExpense(id, updateExpense)
     }
 
     @Delete(":id")
-    deleteExpense(@Param("id") id: string) {
-        return `This action delete a expense with id ${id}`;
+    deleteExpense(@Param("id") id: number) {
+        return this.expensesService.deleteExpense(id);
     }
 }
