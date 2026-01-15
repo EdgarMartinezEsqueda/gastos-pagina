@@ -9,14 +9,14 @@ import { TypeOrmModule } from "@nestjs/typeorm";
             inject: [ConfigService],
             useFactory: (configService: ConfigService ) => ({
                 type: "postgres",
-                host: configService.get<string>("DB_HOST"),
-                port: Number(configService.get<string>("DB_PORT") ?? "5432"),
-                username: configService.get<string>("DB_USERNAME"),
-                password: configService.get<string>("DB_PASSWORD"),
-                database: configService.get<string>("DB_NAME"),
+                host: configService.getOrThrow<string>("DB_HOST"),
+                port: Number(configService.getOrThrow<string>("DB_PORT") ?? "5432"),
+                username: configService.getOrThrow<string>("DB_USERNAME"),
+                password: configService.getOrThrow<string>("DB_PASSWORD"),
+                database: configService.getOrThrow<string>("DB_NAME"),
                 autoLoadEntities: true,
-                synchronize: !!Boolean(configService.get<string>("DB_SYNC")),
-                ssl: Boolean(configService.get<string>("DB_SSL_MODE"))
+                synchronize: !!Boolean(configService.getOrThrow<string>("DB_SYNC")),
+                ssl: Boolean(configService.getOrThrow<string>("DB_SSL_MODE"))
             })
         })
     ]
