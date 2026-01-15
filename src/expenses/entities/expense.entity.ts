@@ -32,4 +32,8 @@ export class Expense {
         nullable: false 
     })
     category: string;
+
+    constructor(expense: Partial<Expense>) {
+        Object.assign(this, expense);
+    }
 }
