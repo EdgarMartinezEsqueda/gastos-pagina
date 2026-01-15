@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query } from "@nestjs/common";
 import { ExpensesService } from "./expenses.service";
 
 @Controller("expenses")
@@ -26,7 +26,7 @@ export class ExpensesController {
     }
 
     @Get(":id")
-    getExpense(@Param("id") id: number) {
+    getExpense(@Param("id", ParseIntPipe) id: number) {
        return this.expensesService.getExpense(id);
     }
 
@@ -36,12 +36,12 @@ export class ExpensesController {
     }
 
     @Put(":id")
-    updateExpense(@Param("id") id: number, @Body() updateExpense: { description?: string, amount?: number, date?: string, category?: string}) {
+    updateExpense(@Param("id", ParseIntPipe) id: number, @Body() updateExpense: { description?: string, amount?: number, date?: string, category?: string}) {
         return this.expensesService.updateExpense(id, updateExpense)
     }
 
     @Delete(":id")
-    deleteExpense(@Param("id") id: number) {
+    deleteExpense(@Param("id", ParseIntPipe) id: number) {
         return this.expensesService.deleteExpense(id);
     }
 }
