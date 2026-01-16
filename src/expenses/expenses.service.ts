@@ -1,94 +1,62 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
-import { CreateExpenseDto } from "./dto/create-extense.dto";
-import { UpdateExpenseDto } from "./dto/update-extense.dto";
+import { InjectRepository } from "@nestjs/typeorm";
+import { ILike, Repository } from "typeorm";
+import { CreateExpenseDto } from "./dto/create-expense.dto";
+import { UpdateExpenseDto } from "./dto/update-expense.dto";
+import { Expense } from "./entities/expense.entity";
 
 @Injectable()
 export class ExpensesService {
-    private expenses = [
-        {
-            id: 1,
-            description: "Gasto en comida",
-            amount: 100.89,
-            date: new Date("2023-10-01"),
-            category: "comida"
-        },
-        {
-            id: 2,
-            description: "Gasto en cine",
-            amount: 333,
-            date: new Date("2023-10-05"),
-            category: "entretenimiento"
-        },
-        {
-            id: 3,
-            description: "Gasto en juegos",
-            amount: 499,
-            date: new Date("2023-10-02"),
-            category: "entretenimiento"
-        },
-        {
-            id: 4,
-            description: "Gasto en medicina",
-            amount: 499.99,
-            date: new Date("2023-10-03"),
-            category: "salud"
-        }
-    ]
+  constructor(
+    @InjectRepository(Expense)
+    private readonly expenseRepo: Repository<Expense>,
+  ) {}
 
-    getAllExpenses() {
-        return this.expenses;
-    }
+  async getAllExpenses() {
+    return this.expenseRepo.find();
+  }
 
-    getExpense(id: number) {
-        const expense = this.expenses.find(expense => expense.id == id);
+  async getExpense(id: number) {
+    const expense = await this.expenseRepo.findOne({ where: { id } });
 
-        if(!expense)
-            throw new NotFoundException(`No se encontró ningún gasto con el id ${id}`);
+    if (!expense) 
+        throw new NotFoundException(`No se encontró gasto con id ${id}`);
 
-        return expense;
-    }
+    return expense;
+  }
 
-    getExpensesByDescription(description: string){
-        const response = this.expenses.filter(expense => expense.description.includes(description) );
+  async getExpensesByDescription(description: string) {
+    if(!description)
+        return this.expenseRepo.find();
 
-        if(!response)
-            throw new NotFoundException("No se encontraron gastos con esa descripción");
+    const response = await this.expenseRepo.find({
+      where: description ? { description: ILike(`%${description}%`) } : {}, // Buscar sin ser sensible a mayúsculas/minúsculas
+    });
+    
+    return response;
+  }
 
-        return response;
-    }
+  async createExpense(createExpenseDto: CreateExpenseDto) {
+    const expense = this.expenseRepo.create(createExpenseDto);
 
-    createExpense(createExpenseDto: CreateExpenseDto ){
-        const id = this.expenses.length + 1;
-        const fecha = new Date(createExpenseDto.date) || new Date();
-        const expense = {id, ...createExpenseDto, date: fecha};
+    return this.expenseRepo.save(expense);
+  }
 
-        this.expenses.push( expense );
+  async updateExpense(id: number, updatedExpenseDto: UpdateExpenseDto) {
+    const result = await this.expenseRepo.update(id, updatedExpenseDto);
 
-        return expense;
-    }
+    if (result.affected === 0)
+      throw new NotFoundException(`No se encontró gasto con id ${id}`);
 
-    updateExpense(id: number, updatedExpenseDto: UpdateExpenseDto){
-        const expense = this.getExpense(id);
+    return this.getExpense(id);
+  }
 
-        if (!expense)
-            throw new   NotFoundException(`No se encontró ningún gasto con el id ${id}`);
+  async deleteExpense(id: number) {
+    const result = await this.expenseRepo.delete(id);
 
-        expense.description = updatedExpenseDto.description ?? expense.description;
-        expense.amount = updatedExpenseDto.amount ?? expense.amount;
-        expense.date = new Date(updatedExpenseDto.date ?? expense.date);
-        expense.category = updatedExpenseDto.category ?? expense.category;
-        
-        return expense;
-    }
+    if (result.affected === 0)
+      throw new NotFoundException(`No se encontró gasto con id ${id}`);
 
-    deleteExpense(id: number){
-        const expense = this.getExpense(id);
-
-        if (!expense)
-            throw new  NotFoundException(`No se encontró ningún gasto con el id ${id}`);
-
-        this.expenses = this.expenses.filter(expense => expense.id != id);
-
-        return "Eliminado";
-    }
+    return "Eliminado";
+  }
 }
