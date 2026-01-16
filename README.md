@@ -71,6 +71,16 @@ PORT=3000
 ```
 ---
 
+## Semillas de Datos
+Para poblar la base de datos con datos de ejemplo, ejecuta:
+
+```bash
+npm run seed
+```
+Te insertará 16 gastos de ejemplo en la base de datos.
+
+---
+
 ## Endpoints de la API
 
 ### Base URL
