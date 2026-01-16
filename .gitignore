@@ -81,6 +81,12 @@
 /frontend/*.sln
 /frontend/*.sw?
 
+/frontend/.env
+/frontend/.env.development.local
+/frontend/.env.test.local
+/frontend/.env.production.local
+/frontend/.env.local
+
 /frontend/*.tsbuildinfo
 
 /frontend/.eslintcache
@@ -91,3 +97,11 @@
 
 # Vitest
 /frontend/__screenshots__/
+
+
+# IDE - VSCode
+/frontend/.vscode/*
+/frontend/!.vscode/settings.json
+/frontend/!.vscode/tasks.json
+/frontend/!.vscode/launch.json
+/frontend/!.vscode/extensions.json
