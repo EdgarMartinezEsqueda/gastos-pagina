@@ -6,6 +6,7 @@ import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { DatabaseModule } from "./database/database.module";
 import { ExpensesModule } from "./expenses/expenses.module";
+import { LoggerModule } from "./logger/logger.module";
 
 @Module({
   imports: [
@@ -18,7 +19,8 @@ import { ExpensesModule } from "./expenses/expenses.module";
     ThrottlerModule.forRoot([{
       ttl: 10000,
       limit: 5
-    }])
+    }]),
+    LoggerModule
   ],
   controllers: [AppController],
   providers: [AppService, {
