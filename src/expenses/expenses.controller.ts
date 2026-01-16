@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query, ValidationPipe } from "@nestjs/common";
-import { CreateExpenseDto } from "./dto/create-extense.dto";
-import { UpdateExpenseDto } from "./dto/update-extense.dto";
+import { CreateExpenseDto } from "./dto/create-expense.dto";
+import { UpdateExpenseDto } from "./dto/update-expense.dto";
 import { ExpensesService } from "./expenses.service";
 
 @Controller("expenses")
@@ -18,32 +18,32 @@ export class ExpensesController {
     */
 
     @Get()
-    getAllExpenses() {
+    async getAllExpenses() {
         return this.expensesService.getAllExpenses();
     }
     
     @Get("search")
-    getExpensesByDescription(@Query("query") description: string) {
+    async getExpensesByDescription(@Query("query") description: string) {
         return this.expensesService.getExpensesByDescription(description);
     }
 
     @Get(":id")
-    getExpense(@Param("id", ParseIntPipe) id: number) {
+    async getExpense(@Param("id", ParseIntPipe) id: number) {
        return this.expensesService.getExpense(id);
     }
 
     @Post()
-    createExpense(@Body(ValidationPipe) createUserDto: CreateExpenseDto) {
+    async createExpense(@Body(ValidationPipe) createUserDto: CreateExpenseDto) {
         return this.expensesService.createExpense(createUserDto);
     }
 
     @Put(":id")
-    updateExpense(@Param("id", ParseIntPipe) id: number, @Body(ValidationPipe) updateExpenseDto: UpdateExpenseDto) {
+    async updateExpense(@Param("id", ParseIntPipe) id: number, @Body(ValidationPipe) updateExpenseDto: UpdateExpenseDto) {
         return this.expensesService.updateExpense(id, updateExpenseDto)
     }
 
     @Delete(":id")
-    deleteExpense(@Param("id", ParseIntPipe) id: number) {
+    async deleteExpense(@Param("id", ParseIntPipe) id: number) {
         return this.expensesService.deleteExpense(id);
     }
 }
