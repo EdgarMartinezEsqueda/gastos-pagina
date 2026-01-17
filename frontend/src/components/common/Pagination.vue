@@ -93,23 +93,23 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: "update:page", page: number): void
+  (e: "update:currentPage", page: number): void
 }>()
 
 const onNext = () => {
   if (props.hasNext) {
-    emit("update:page", props.currentPage + 1)
+    emit("update:currentPage", props.currentPage + 1)
   }
 }
 
 const onPrev = () => {
   if (props.hasPrev) {
-    emit("update:page", props.currentPage - 1)
+    emit("update:currentPage", props.currentPage - 1)
   }
 }
 
 const onPageChange = (page: number) => {
-  emit("update:page", page)
+  emit("update:currentPage", page)
 }
 
 const pages = computed(() => {
