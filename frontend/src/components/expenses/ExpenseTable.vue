@@ -58,14 +58,14 @@
             <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
               <div class="flex justify-end space-x-2">
                 <button
-                  @click="$emit("edit", expense)"
+                  @click="$emit('edit', expense)"
                   class="text-primary-600 hover:text-primary-900 p-1 hover:bg-primary-50 rounded"
                   title="Editar"
                 >
                   <PencilIcon class="h-5 w-5" />
                 </button>
                 <button
-                  @click="$emit("delete", expense)"
+                  @click="$emit('delete', expense)"
                   class="text-red-600 hover:text-red-900 p-1 hover:bg-red-50 rounded"
                   title="Eliminar"
                 >
@@ -89,10 +89,10 @@
 </template>
 
 <script setup lang="ts">
-import { PencilIcon, TrashIcon } from "@heroicons/vue/24/outline"
-import type { Expense } from "@/types/expense"
-import { formatCurrency, formatDate, formatCategory } from "@/utils/formatters"
-import EmptyState from "@/components/common/EmptyState.vue"
+import EmptyState from "@/components/common/EmptyState.vue";
+import type { Expense } from "@/types/expense";
+import { formatCategory, formatCurrency, formatDate } from "@/utils/formatters";
+import { PencilIcon, TrashIcon } from "@heroicons/vue/24/outline";
 
 defineProps<{
   expenses: Expense[]

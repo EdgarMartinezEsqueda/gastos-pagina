@@ -13,7 +13,7 @@
       <ExpenseForm
         :initial-data="expense"
         :loading="loading"
-        @submit="$emit("save", $event)"
+        @submit="$emit('save', $event)"
         @cancel="close"
       />
     </div>
@@ -21,10 +21,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue"
-import UModal from "@/components/ui/UModal.vue"
-import ExpenseForm from "./ExpenseForm.vue"
-import type { Expense } from "@/types/expense"
+import UModal from "@/components/ui/UModal.vue";
+import type { Expense } from "@/types/expense";
+import { computed } from "vue";
+import ExpenseForm from "./ExpenseForm.vue";
 
 const props = defineProps<{
   modelValue: boolean

@@ -96,9 +96,9 @@
           <div class="p-4">
             <div class="flex items-start">
               <div class="flex-shrink-0">
-                <CheckCircleIcon v-if="toast.type === "success"" class="h-6 w-6 text-green-400" aria-hidden="true" />
-                <XCircleIcon v-else-if="toast.type === "error"" class="h-6 w-6 text-red-400" aria-hidden="true" />
-                <InformationCircleIcon v-else-if="toast.type === "info"" class="h-6 w-6 text-blue-400" aria-hidden="true" />
+                <CheckCircleIcon v-if="toast.type === 'success'" class="h-6 w-6 text-green-400" aria-hidden="true" />
+                <XCircleIcon v-else-if="toast.type === 'error'" class="h-6 w-6 text-red-400" aria-hidden="true" />
+                <InformationCircleIcon v-else-if="toast.type === 'info'" class="h-6 w-6 text-blue-400" aria-hidden="true" />
                 <ExclamationTriangleIcon v-else class="h-6 w-6 text-yellow-400" aria-hidden="true" />
               </div>
               <div class="ml-3 w-0 flex-1 pt-0.5">
@@ -123,23 +123,23 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from "vue"
-import { PlusIcon, CheckCircleIcon, XCircleIcon, InformationCircleIcon, ExclamationTriangleIcon, XMarkIcon } from "@heroicons/vue/24/outline"
+import { CheckCircleIcon, ExclamationTriangleIcon, InformationCircleIcon, PlusIcon, XCircleIcon, XMarkIcon } from "@heroicons/vue/24/outline"
+import { onMounted, ref, watch } from "vue"
 
-import AppLayout from "@/components/layout/AppLayout.vue"
-import AppHeader from "@/components/layout/AppHeader.vue"
 import Pagination from "@/components/common/Pagination.vue"
+import AppHeader from "@/components/layout/AppHeader.vue"
+import AppLayout from "@/components/layout/AppLayout.vue"
 import UButton from "@/components/ui/UButton.vue"
 
-import ExpenseTable from "@/components/expenses/ExpenseTable.vue"
+import DeleteConfirmDialog from "@/components/expenses/DeleteConfirmDialog.vue"
 import ExpenseCard from "@/components/expenses/ExpenseCard.vue"
 import ExpenseFilters from "@/components/expenses/ExpenseFilters.vue"
 import ExpenseModal from "@/components/expenses/ExpenseModal.vue"
-import DeleteConfirmDialog from "@/components/expenses/DeleteConfirmDialog.vue"
+import ExpenseTable from "@/components/expenses/ExpenseTable.vue"
 
 import { useExpenses } from "@/composables/useExpenses"
-import { usePagination } from "@/composables/usePagination"
 import { useFilters } from "@/composables/useFilters"
+import { usePagination } from "@/composables/usePagination"
 import { useToast } from "@/composables/useToast"
 import type { Expense } from "@/types/expense"
 
@@ -153,7 +153,7 @@ const {
   deleteExpense,
   totalItems,
 } = useExpenses()
-// Note: apiTotalPages from useExpenses isn"t reactive to Pagination state change directly,
+// Note: apiTotalPages from useExpenses isn't reactive to Pagination state change directly,
 // but fetchExpenses updates it.
 
 const {

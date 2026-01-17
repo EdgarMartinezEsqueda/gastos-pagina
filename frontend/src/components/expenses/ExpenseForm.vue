@@ -7,7 +7,7 @@
       placeholder="Descripción del gasto"
       label="Descripción"
       :error="errors.description"
-      @blur="validateField("description")"
+      @blur="validateField('description')"
     />
 
     <UInput
@@ -18,7 +18,7 @@
       placeholder="0.00"
       label="Monto"
       :error="errors.amount"
-      @blur="validateField("amount")"
+      @blur="validateField('amount')"
     >
       <template #leading>
         <span class="text-gray-500 sm:text-sm">$</span>
@@ -32,7 +32,7 @@
       v-model="formData.date"
       label="Fecha"
       :error="errors.date"
-      @blur="validateField("date")"
+      @blur="validateField('date')"
     />
 
     <div class="space-y-1">
@@ -48,7 +48,7 @@
     <div class="flex justify-end space-x-3 pt-4 border-t border-gray-100">
       <UButton
         variant="white"
-        @click="$emit("cancel")"
+        @click="$emit('cancel')"
         :disabled="loading"
       >
         Cancelar
@@ -65,14 +65,14 @@
 </template>
 
 <script setup lang="ts">
-import { watch, onMounted } from "vue"
-import { useForm } from "@/composables/useForm"
-import { CATEGORY_OPTIONS } from "@/utils/constants"
-import { formatDateForInput } from "@/utils/formatters"
 import UButton from "@/components/ui/UButton.vue"
 import UInput from "@/components/ui/UInput.vue"
 import USelect from "@/components/ui/USelect.vue"
+import { useForm } from "@/composables/useForm"
 import type { Expense } from "@/types/expense"
+import { CATEGORY_OPTIONS } from "@/utils/constants"
+import { formatDateForInput } from "@/utils/formatters"
+import { watch } from "vue"
 
 const props = defineProps<{
   initialData?: Expense | null

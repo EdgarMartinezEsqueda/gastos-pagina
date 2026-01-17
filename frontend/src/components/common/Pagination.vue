@@ -43,7 +43,7 @@
           
           <template v-for="page in pages" :key="page">
              <button
-                v-if="page === "...""
+                v-if="page === '...'"
                 class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 ring-1 ring-inset ring-gray-300 focus:outline-offset-0"
               >
                 ...
@@ -53,9 +53,9 @@
                 @click="onPageChange(page as number)"
                 :class="[
                   page === currentPage
-                    ? "z-10 bg-primary-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
-                    : "text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0",
-                  "relative inline-flex items-center px-4 py-2 text-sm font-semibold focus:z-20"
+                    ? 'z-10 bg-primary-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600'
+                    : 'text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0',
+                  'relative inline-flex items-center px-4 py-2 text-sm font-semibold focus:z-20'
                 ]"
               >
                 {{ page }}
@@ -79,7 +79,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue"
+import { computed } from "vue";
 
 const props = defineProps<{
   currentPage: number

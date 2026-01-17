@@ -34,7 +34,7 @@
               variant="outline"
               color="primary"
               class="flex-1 justify-center"
-              @click="$emit("edit", expense)"
+              @click="$emit('edit', expense)"
             >
               <template #leading>
                 <PencilIcon class="h-4 w-4 mr-1" />
@@ -45,7 +45,7 @@
               variant="outline"
               color="red"
               class="flex-1 justify-center"
-              @click="$emit("delete", expense)"
+              @click="$emit('delete', expense)"
             >
               <template #leading>
                 <TrashIcon class="h-4 w-4 mr-1" />
@@ -67,11 +67,11 @@
 </template>
 
 <script setup lang="ts">
-import { PencilIcon, TrashIcon } from "@heroicons/vue/24/outline"
-import type { Expense } from "@/types/expense"
-import { formatCurrency, formatDate, formatCategory } from "@/utils/formatters"
 import EmptyState from "@/components/common/EmptyState.vue"
 import UButton from "@/components/ui/UButton.vue"
+import type { Expense } from "@/types/expense"
+import { formatCategory, formatCurrency, formatDate } from "@/utils/formatters"
+import { PencilIcon, TrashIcon } from "@heroicons/vue/24/outline"
 
 defineProps<{
   expenses: Expense[]

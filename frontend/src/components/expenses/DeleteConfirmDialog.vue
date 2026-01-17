@@ -22,7 +22,7 @@
         color="red"
         class="w-full sm:ml-3 sm:w-auto"
         :loading="loading"
-        @click="$emit("confirm")"
+        @click="$emit('confirm')"
       >
         Eliminar
       </UButton>
@@ -39,12 +39,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue"
-import { ExclamationTriangleIcon } from "@heroicons/vue/24/outline"
-import UModal from "@/components/ui/UModal.vue"
 import UButton from "@/components/ui/UButton.vue"
+import UModal from "@/components/ui/UModal.vue"
 import type { Expense } from "@/types/expense"
 import { formatCurrency, formatDate } from "@/utils/formatters"
+import { ExclamationTriangleIcon } from "@heroicons/vue/24/outline"
+import { computed } from "vue"
 
 const props = defineProps<{
   modelValue: boolean
