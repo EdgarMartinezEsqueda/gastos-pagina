@@ -28,7 +28,7 @@
 
     <div class="sm:flex-none">
       <UButton
-        variant="white"
+        color="white"
         @click="clearFilters"
         :disabled="!hasActiveFilters"
         class="w-full sm:w-auto"

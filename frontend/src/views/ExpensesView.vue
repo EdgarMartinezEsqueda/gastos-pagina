@@ -45,7 +45,7 @@
       <!-- Paginación -->
       <div v-if="totalPages > 1 || loading" class="mt-6">
         <Pagination
-          v-model:page="currentPage"
+          v-model:currentPage="currentPage"
           :total-pages="totalPages"
           :total-items="totalItems"
           :items-per-page="itemsPerPage"

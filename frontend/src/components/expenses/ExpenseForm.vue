@@ -47,7 +47,7 @@
 
     <div class="flex justify-end space-x-3 pt-4 border-t border-gray-100">
       <UButton
-        variant="white"
+        color="white"
         @click="$emit('cancel')"
         :disabled="loading"
       >
@@ -112,7 +112,7 @@ watch(() => props.initialData, (newData) => {
   } else {
     resetForm()
     // Set default date to today for new expenses
-    formData.date = new Date().toISOString().split("T")[0]
+    formData.date = new Date().toISOString().split("T")[0] || ""
   }
 }, { immediate: true })
 </script>

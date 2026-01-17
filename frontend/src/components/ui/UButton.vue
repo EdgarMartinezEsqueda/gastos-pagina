@@ -30,7 +30,7 @@
 
 <script setup lang="ts">
 
-const props = withDefaults(defineProps<{
+withDefaults(defineProps<{
   type?: "button" | "submit" | "reset"
   block?: boolean
   loading?: boolean

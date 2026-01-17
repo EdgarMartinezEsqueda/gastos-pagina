@@ -27,7 +27,7 @@
         Eliminar
       </UButton>
       <UButton
-        variant="white"
+        color="white"
         class="mt-3 w-full sm:mt-0 sm:w-auto"
         @click="close"
         :disabled="loading"
