@@ -1,4 +1,4 @@
-# Sistema de Gestión de Gastos - Backend API
+# Sistema de Gestión de Gastos - Frontend
 
 ## Descripción
 
