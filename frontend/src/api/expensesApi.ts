@@ -1,8 +1,8 @@
-import type { ApiError, PaginatedResponse, QueryParams } from "@/types/api"
-import type { CreateExpenseDto, Expense, UpdateExpenseDto } from "@/types/expense"
-import axios, { type AxiosError, type AxiosInstance } from "axios"
+import type { ApiError, PaginatedResponse, QueryParams } from "@/types/api";
+import type { CreateExpenseDto, Expense, UpdateExpenseDto } from "@/types/expense";
+import axios, { type AxiosError, type AxiosInstance } from "axios";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api"
+const API_URL = import.meta.env.VITE_API_URL;
 
 // Crear instancia de Axios
 const apiClient: AxiosInstance = axios.create({
